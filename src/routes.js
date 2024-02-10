@@ -19,7 +19,7 @@ export const routes = [
     method: 'POST',
     path: buldRoutePath('/users'),
     handler: (req,res)=>{
-      const {name, email} = req.body
+      const { name, email } = req.body
 
       const user ={
         id: randomUUID(),
@@ -28,14 +28,19 @@ export const routes = [
       }
   
       database.insert('users', user)
+
       return res.writeHead(201).end()
     }
   },
   {
     method: 'DELETE',
     path: buldRoutePath('/users/:id'),
-    handler: () => {
+    handler: (req,res) => {
+      const {id} = req.params
 
+      database.delete('users', id)
+
+      return res.writeHead(204).end()
     }
   }
 ]
